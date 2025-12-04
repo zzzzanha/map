@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Map</title>
+<meta charset='utf-8'>
+<meta name='viewport' content='width=device-width initial-scale=1.0, maximum-scale=1.0, user-scalable=no' >
+
+<!--余白の消去-->
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+
+  #mapcontainer {
+    width: 100%;
+    height: 100vh; /* 全画面に広げる */
+    position: relative;
+  }
+</style>
+
+</head>
+<body>
+<!--データの読み取り-->
+	<script src="./routes.js"></script>
+	<script src="./locations.js"></script>
+
+<!-- 埋め込みマップのdivタグ。マップサイズはwidth（幅）とheight（高さ）で決まる -->
+<div id='mapcontainer' style="width:100%; height:100vh; z-index:0; position: relative;">
+<select id="myPointSelect" style="
+	position: absolute;
+	top: 10px;
+	left: 60px;
+	z-index: 1000;
+	background: white;
+	padding: 5px
+	">
+<script>
+	const select1 = document.getElementById('myPointSelect');
+	for(const key in locations){
+		const option = document.createElement('option');
+		option.value = key;
+		option.textContent = locations[key].name;
+		select1.appendChild(option);
+	}
+</script>
+</select>
+<select id="myRouteSelect" style="
+	position: absolute;
+	top: 47.34px;
+	left: 60px;
+	z-index: 1000;
+	background: white;
+	padding: 5px		">
+<script>
+	const select2=document.getElementById("myRouteSelect");
+	const allSelect=document.createElement("option");
+	allSelect.value="All";
+	allSelect.textContent="すべてを表示";
+	select2.appendChild(allSelect);
+	for (const key in routes){
+		const option=document.createElement("option");
+		option.value=key;
+		option.textContent=routes[key].name;
+		select2.appendChild(option);
+	}
+</script>
+</select></div>
+
+<!-- 以下LeafletのJavaScriptとCSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+<!--処理-->
+	<script src="./script.js"></script>
+
+</body>
+</html>
